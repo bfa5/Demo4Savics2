@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -19,9 +23,8 @@ import retrofit.client.Response;
 
 public class ListFragment extends Fragment {
     private final String TAG = "yyy-ListFragment";
-    private SignUpResponse signUpResponsesData;
-    private EditText email, password, name;
-    private Button signUp;
+    RecyclerView recyclerView;
+    List<UserListResponse> userListResponseData;
     private Activity activity;
 
     private Callbacks mCallbacks;
@@ -56,21 +59,11 @@ public class ListFragment extends Fragment {
         //Log.d(TAG, "onCreateView / activity = " + activity);
         View v = inflater.inflate(R.layout.fragment_list,container, false);
         // init the EditText and Button
-
+        recyclerView = v.findViewById(R.id.recyclerView);
+        getUserListData(); // call a method in which we have implement our GET type web API
         return v;
     }
-    
-    private boolean validate(EditText editText) {
-        // check the lenght of the enter data in EditText and give error if its empty
-        if (editText.getText().toString().trim().length() > 0) {
-            return true; // returs true if field is not empty
-        }
-        editText.setError("Please Fill This");
-        editText.requestFocus();
-        return false;
-    }
-
-    private void signUp() {
+    private void getUserListData() {
         // display a progress dialog
         final ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setCancelable(false); // set cancelable to false
@@ -78,28 +71,33 @@ public class ListFragment extends Fragment {
         progressDialog.show(); // show progress dialog
 
         // Api is a class in which we define a method getClient() that returns the API Interface class object
-        // registration is a POST request type method in which we are sending our field's data
-        Api.getClient().registration(name.getText().toString().trim(),
-                email.getText().toString().trim(),
-                password.getText().toString().trim(),
-                "email", new Callback<SignUpResponse>() {
-                    @Override
-                    public void success(SignUpResponse signUpResponse, Response response) {
-                        // in this method we will get the response from API
-                        progressDialog.dismiss(); //dismiss progress dialog
-                        signUpResponsesData = signUpResponse;
-                        // display the message getting from web api
-                        mCallbacks.onSingUp(signUpResponsesData);
-                        Toast.makeText(activity, signUpResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+        // getUsersList() is a method in API Interface class, in this method we define our API sub url
+        Api.getClient().getUsersList(new Callback<List<UserListResponse>>() {
+            @Override
+            public void success(List<UserListResponse> userListResponses, Response response) {
+                // in this method we will get the response from API
+                progressDialog.dismiss(); //dismiss progress dialog
+                userListResponseData = userListResponses;
+                setDataInRecyclerView(); // call this method to set the data in adapter
+            }
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        // if error occurs in network transaction then we can get the error in this method.
-                        Toast.makeText(activity, error.toString(), Toast.LENGTH_LONG).show();
-                        progressDialog.dismiss(); //dismiss progress dialog
-                    }
-                });
+            @Override
+            public void failure(RetrofitError error) {
+                // if error occurs in network transaction then we can get the error in this method.
+                Toast.makeText(activity, error.toString(), Toast.LENGTH_LONG).show();
+                progressDialog.dismiss(); //dismiss progress dialog
+
+            }
+        });
+    }
+
+    private void setDataInRecyclerView() {
+        // set a LinearLayoutManager with default vertical orientation
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        // call the constructor of UsersAdapter to send the reference and data to Adapter
+        UsersAdapter usersAdapter = new UsersAdapter(activity, userListResponseData);
+        recyclerView.setAdapter(usersAdapter); // set the Adapter to RecyclerView
     }
 
     @Override

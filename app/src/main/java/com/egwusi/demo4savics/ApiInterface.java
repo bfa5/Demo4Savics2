@@ -1,5 +1,7 @@
 package com.egwusi.demo4savics;
 
+import java.util.List;
+
 import retrofit.Callback;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -15,6 +17,10 @@ public interface ApiInterface {
                                  @Field("password") String password,
                                  @Field("logintype") String logintype,
                                  Callback<SignUpResponse> callback);
+        // API's endpoints
+        @GET("/retrofit/getuser.php")
+        public void getUsersList(
+                Callback<List<UserListResponse>> callback);
 
 // For POST request
         @FormUrlEncoded    // annotation that used with POST type request
@@ -22,6 +28,11 @@ public interface ApiInterface {
         public void login(
                 @Field("user_email") String user_email,
                 @Field("user_pass") String user_pass, Callback<SignUpResponse> callback);
+
+
+
+// UserListResponse is POJO class to get the data from API, In above method we use List<UserListResponse> because the data in our API is starting from JSONArray and callback is used to get the response from api and it will set it in our POJO class
+
 
 //user_email and user_pass are the post parameters and SignUpResponse is a POJO class which recieves the response of this API
 // for GET request

@@ -1,5 +1,6 @@
 package com.egwusi.demo4savics;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class UserListResponse {
