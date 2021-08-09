@@ -18,7 +18,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class ListFragment extends Fragment {
-    private final String TAG = "yyy-SingInFragment";
+    private final String TAG = "yyy-ListFragment";
     private SignUpResponse signUpResponsesData;
     private EditText email, password, name;
     private Button signUp;

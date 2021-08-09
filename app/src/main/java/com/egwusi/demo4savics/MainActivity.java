@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SingInFragment.Callbacks{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +23,11 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-
+    @Override
+    public void onSingUp(SignUpResponse signUpResponse) {
+        Fragment fragment = ListFragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container,fragment)
+                .commit();
+    }
 }
