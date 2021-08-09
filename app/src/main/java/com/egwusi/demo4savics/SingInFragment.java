@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.UUID;
 
 import retrofit.Callback;
+import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class SingInFragment extends Fragment {
@@ -40,6 +41,13 @@ public class SingInFragment extends Fragment {
     private EditText email, password, name;
     private Button signUp;
     private Activity activity;
+
+    private Callbacks mCallbacks;
+
+    public interface Callbacks{
+        void onSingUp(SignUpResponse signUpResponse);
+    }
+
 
     public static SingInFragment newInstance(){
        /* Bundle args = new Bundle();
@@ -82,6 +90,7 @@ public class SingInFragment extends Fragment {
         });
         return v;
     }
+    
     private boolean validate(EditText editText) {
         // check the lenght of the enter data in EditText and give error if its empty
         if (editText.getText().toString().trim().length() > 0) {
@@ -94,7 +103,7 @@ public class SingInFragment extends Fragment {
 
     private void signUp() {
         // display a progress dialog
-        final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+        final ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setCancelable(false); // set cancelable to false
         progressDialog.setMessage("Please Wait"); // set message
         progressDialog.show(); // show progress dialog
@@ -111,15 +120,15 @@ public class SingInFragment extends Fragment {
                         progressDialog.dismiss(); //dismiss progress dialog
                         signUpResponsesData = signUpResponse;
                         // display the message getting from web api
-                        Toast.makeText(MainActivity.this, signUpResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        mCallbacks.onSingUp(signUpResponsesData);
+                        Toast.makeText(activity, signUpResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         // if error occurs in network transaction then we can get the error in this method.
-                        Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, error.toString(), Toast.LENGTH_LONG).show();
                         progressDialog.dismiss(); //dismiss progress dialog
-
                     }
                 });
     }
