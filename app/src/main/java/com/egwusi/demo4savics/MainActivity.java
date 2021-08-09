@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment fragment = SingInFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.detail_fragment_container,newDetail)
+                .replace(R.id.fragment_container,fragment)
                 .commit();
     }
+
+
 }
