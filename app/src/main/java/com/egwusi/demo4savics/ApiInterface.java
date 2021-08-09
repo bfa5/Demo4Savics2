@@ -25,10 +25,12 @@ public interface ApiInterface {
 
 //user_email and user_pass are the post parameters and SignUpResponse is a POJO class which recieves the response of this API
 // for GET request
+/*
 
         @GET("/demo/countrylist.php") // specify the sub url for our base url
         public void getVideoList(Callback<List<CountryResponse>> callback);
 
+*/
 // CountryResponse is a POJO class which receives the response of this API
 
 }

@@ -54,22 +54,9 @@ public class ListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         //activity = getActivity();
         //Log.d(TAG, "onCreateView / activity = " + activity);
-        View v = inflater.inflate(R.layout.fragment_singin,container, false);
+        View v = inflater.inflate(R.layout.fragment_list,container, false);
         // init the EditText and Button
-        name = v.findViewById(R.id.username);
-        email = v.findViewById(R.id.email);
-        password = v.findViewById(R.id.password);
-        signUp = v.findViewById(R.id.signUp);
-        // implement setOnClickListener event on sign up Button
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // validate the fields and call sign method to implement the api
-                if (validate(name) && validate(email) && validate(password)) {
-                    signUp();
-                }
-            }
-        });
+
         return v;
     }
     
