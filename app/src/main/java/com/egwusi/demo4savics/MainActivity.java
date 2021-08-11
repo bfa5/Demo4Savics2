@@ -17,15 +17,23 @@ public class MainActivity extends AppCompatActivity implements SingInFragment.Ca
     protected void onResume() {
         super.onResume();
 
-        Fragment fragment = SingInFragment.newInstance();
+        list();
+    }
+
+    @Override
+    public void onSingUp(SignUpResponse signUpResponse) {
+
+    }
+
+    void list(){
+        Fragment fragment = ListFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container,fragment)
                 .commit();
     }
 
-    @Override
-    public void onSingUp(SignUpResponse signUpResponse) {
-        Fragment fragment = ListFragment.newInstance();
+    void connextion(){
+        Fragment fragment = SingInFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container,fragment)
                 .commit();

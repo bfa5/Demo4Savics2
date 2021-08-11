@@ -10,6 +10,11 @@ import retrofit.http.POST;
 
 public interface ApiInterface {
 
+        // API's endpoints
+        @GET("/retrofit/getuser.php")
+        public void getFoodList(
+                Callback<List<UserListResponse>> callback);
+
         @FormUrlEncoded // annotation used in POST type requests
         @POST("/retrofit/register.php")     // API's endpoints
         public void registration(@Field("name") String name,
