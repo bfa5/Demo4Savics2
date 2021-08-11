@@ -5,20 +5,17 @@ import java.util.Map;
 
 public class FoodListResponse {
     // POJO class to get the data from web api
-    private String id;
+    private int id;
     private String name;
-    private String email;
-    private String password;
-    private String com_code;
-    private String status;
-    private String forgot;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private String description;
+    private String image;
+    private int price;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -30,51 +27,27 @@ public class FoodListResponse {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPassword() {
-        return password;
+    public String getImage() {
+        return image;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getCom_code() {
-        return com_code;
+    public int getPrice() {
+        return price;
     }
 
-    public void setCom_code(String com_code) {
-        this.com_code = com_code;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getForgot() {
-        return forgot;
-    }
-
-    public void setForgot(String forgot) {
-        this.forgot = forgot;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

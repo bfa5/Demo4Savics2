@@ -11,8 +11,13 @@ import retrofit.http.POST;
 public interface ApiInterface {
 
         // API's endpoints
+        @GET(".")
+        public void getFoodsList(
+                Callback<List<FoodListResponse>> callback);
+
+        // API's endpoints
         @GET("/retrofit/getuser.php")
-        public void getFoodList(
+        public void getUsersList(
                 Callback<List<UserListResponse>> callback);
 
         @FormUrlEncoded // annotation used in POST type requests
@@ -22,10 +27,6 @@ public interface ApiInterface {
                                  @Field("password") String password,
                                  @Field("logintype") String logintype,
                                  Callback<SignUpResponse> callback);
-        // API's endpoints
-        @GET("/retrofit/getuser.php")
-        public void getUsersList(
-                Callback<List<UserListResponse>> callback);
 
 // For POST request
         @FormUrlEncoded    // annotation that used with POST type request

@@ -25,13 +25,8 @@ public class ListFragment extends Fragment {
     private final String TAG = "yyy-ListFragment";
     RecyclerView recyclerView;
     List<UserListResponse> userListResponseData;
+    List<FoodListResponse> foodListResponseData;
     private Activity activity;
-
-    private Callbacks mCallbacks;
-
-    public interface Callbacks{
-        void onSingUp(SignUpResponse signUpResponse);
-    }
 
 
     public static ListFragment newInstance(){
@@ -61,9 +56,10 @@ public class ListFragment extends Fragment {
         // init the EditText and Button
         recyclerView = v.findViewById(R.id.recyclerView);
         getUserListData(); // call a method in which we have implement our GET type web API
+        getFoodListData(); // call a method in which we have implement our GET type web API
         return v;
     }
-    private void getUserListData() {
+    private void getFoodListData() {
         // display a progress dialog
         final ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setCancelable(false); // set cancelable to false
@@ -72,12 +68,12 @@ public class ListFragment extends Fragment {
 
         // Api is a class in which we define a method getClient() that returns the API Interface class object
         // getUsersList() is a method in API Interface class, in this method we define our API sub url
-        Api.getClient().getUsersList(new Callback<List<UserListResponse>>() {
+        Api.getClient().getFoodsList(new Callback<List<FoodListResponse>>() {
             @Override
-            public void success(List<UserListResponse> userListResponses, Response response) {
+            public void success(List<FoodListResponse> foodListResponses, Response response) {
                 // in this method we will get the response from API
                 progressDialog.dismiss(); //dismiss progress dialog
-                userListResponseData = userListResponses;
+                foodListResponseData = foodListResponses;
                 setDataInRecyclerView(); // call this method to set the data in adapter
             }
 
@@ -91,7 +87,44 @@ public class ListFragment extends Fragment {
         });
     }
 
+    private void getUserListData() {
+            // display a progress dialog
+            final ProgressDialog progressDialog = new ProgressDialog(activity);
+            progressDialog.setCancelable(false); // set cancelable to false
+            progressDialog.setMessage("Please Wait"); // set message
+            progressDialog.show(); // show progress dialog
+
+            // Api is a class in which we define a method getClient() that returns the API Interface class object
+            // getUsersList() is a method in API Interface class, in this method we define our API sub url
+            Api.getClient().getUsersList(new Callback<List<UserListResponse>>() {
+                @Override
+                public void success(List<UserListResponse> userListResponses, Response response) {
+                    // in this method we will get the response from API
+                    progressDialog.dismiss(); //dismiss progress dialog
+                    userListResponseData = userListResponses;
+                    setDataInRecyclerView(); // call this method to set the data in adapter
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    // if error occurs in network transaction then we can get the error in this method.
+                    Toast.makeText(activity, error.toString(), Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss(); //dismiss progress dialog
+
+                }
+            });
+        }
+
     private void setDataInRecyclerView() {
+        // set a LinearLayoutManager with default vertical orientation
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        // call the constructor of UsersAdapter to send the reference and data to Adapter
+        UsersAdapter usersAdapter = new UsersAdapter(activity, userListResponseData);
+        recyclerView.setAdapter(usersAdapter); // set the Adapter to RecyclerView
+    }
+
+    private void setFoodInRecyclerView() {
         // set a LinearLayoutManager with default vertical orientation
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(linearLayoutManager);
