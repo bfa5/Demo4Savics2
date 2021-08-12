@@ -23,7 +23,6 @@ public class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.FoodsViewHol
 
     @Override
     public FoodsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(context).inflate(R.layout.foods_list_items, null);
         FoodsViewHolder foodsViewHolder = new FoodsViewHolder(view);
         return foodsViewHolder;

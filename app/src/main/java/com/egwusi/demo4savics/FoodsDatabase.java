@@ -27,7 +27,6 @@ public abstract class FoodsDatabase extends RoomDatabase {
                         FoodsDatabase.class, DATA_BASE_NAME)
                         .build();
                 instance.init();
-
             }
             return instance;
         }
