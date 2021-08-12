@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Demo4Savics</string>
+    <string name="login">please login with the server ip adresse (where obij-api is running) for example: 192.168.122.1</string>
 </resources>

@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity implements SingInFragment.Callbacks{
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,24 +16,11 @@ public class MainActivity extends AppCompatActivity implements SingInFragment.Ca
     @Override
     protected void onResume() {
         super.onResume();
-
-        list();
+        connection();
     }
 
-    @Override
-    public void onSingUp(SignUpResponse signUpResponse) {
-
-    }
-
-    void list(){
-        Fragment fragment = ListFragment.newInstance();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container,fragment)
-                .commit();
-    }
-
-    void connextion(){
-        Fragment fragment = SingInFragment.newInstance();
+    void connection(){
+        Fragment fragment = SignInFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container,fragment)
                 .commit();

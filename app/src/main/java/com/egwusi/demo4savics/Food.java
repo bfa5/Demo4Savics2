@@ -1,11 +1,18 @@
 package com.egwusi.demo4savics;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class FoodListResponse {
+
+@Entity(tableName = "Foods")
+public class Food {
     // POJO class to get the data from web api
+    @PrimaryKey
     private int id;
+
     private String name;
     private String description;
     private String image;
