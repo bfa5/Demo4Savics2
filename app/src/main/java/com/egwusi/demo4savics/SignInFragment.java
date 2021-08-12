@@ -16,6 +16,7 @@ public class SignInFragment extends Fragment {
     private final String TAG = "yyy-SignInFragment";
     //private SignUpResponse signUpResponsesData;
     private EditText email, password, name;
+    private EditText ipAddress;
     private Button signIn;
     private Activity activity;
 
@@ -40,9 +41,9 @@ public class SignInFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         //activity = getActivity();
         //Log.d(TAG, "onCreateView / activity = " + activity);
-        View v = inflater.inflate(R.layout.fragment_singin,container, false);
+        View v = inflater.inflate(R.layout.fragment_signin,container, false);
         // init the EditText and Button
-        name = v.findViewById(R.id.username);
+        ipAddress = v.findViewById(R.id.username);
         /*email = v.findViewById(R.id.email);
         password = v.findViewById(R.id.password);*/
         signIn = v.findViewById(R.id.signIn);
@@ -71,9 +72,9 @@ public class SignInFragment extends Fragment {
     }
 
     private void signIn() {
-        if (!validate(name)) return;
+        if (!validate(ipAddress)) return;
         // display a progress dialog
-        ListFragment listFragment = ListFragment.newInstance(name.getText().toString().trim());
+        ListFragment listFragment = ListFragment.newInstance(ipAddress.getText().toString().trim());
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, listFragment);
         transaction.addToBackStack(null);

@@ -22,7 +22,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class ListFragment extends Fragment {
-    private static final String ARG_IP_ADRESSE = "ip_address";
+    private static final String ARG_IP_ADDRESS = "ip_address";
     private final String TAG = "yyy-ListFragment";
     RecyclerView foodsRecyclerView;
     //List<UserListResponse> userListResponseData;
@@ -39,9 +39,9 @@ public class ListFragment extends Fragment {
         return new ListFragment();//fragment;
     }
 
-    public static ListFragment newInstance(String ipAdress){
+    public static ListFragment newInstance(String ipAddress){
         Bundle args = new Bundle();
-        args.putSerializable(ARG_IP_ADRESSE, ipAdress);
+        args.putSerializable(ARG_IP_ADDRESS, ipAddress);
 
         ListFragment fragment = new ListFragment();
         fragment.setArguments(args);
@@ -56,7 +56,7 @@ public class ListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         activity = getActivity();
-        apiServerIp = getArguments() != null ? getArguments().getString(ARG_IP_ADRESSE) : null;
+        apiServerIp = getArguments() != null ? getArguments().getString(ARG_IP_ADDRESS) : null;
 
 
 

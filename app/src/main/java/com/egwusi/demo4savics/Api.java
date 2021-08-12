@@ -3,8 +3,8 @@ package com.egwusi.demo4savics;
 import retrofit.RestAdapter;
 
 public class Api {
-    public static ApiInterface getClient(String ip) {
-        String endPoint = "http://"+ip+":8001";
+    public static ApiInterface getClient(String ipAddress) {
+        String endPoint = "http://"+ipAddress+":8001";
         //base URL
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(endPoint) //Set the Root URL
